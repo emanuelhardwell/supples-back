@@ -1,6 +1,19 @@
 const emails = {};
 
-emails.register = (name, url, emailSoporte) => {
+emails.emailRegister = (
+  name,
+  urlFrontend,
+  email,
+  tokenConfirm,
+  emailSoporte,
+  senderName,
+  senderAddress,
+  senderCity,
+  senderState,
+  senderZip,
+  linkUnsubscribe,
+  linkUnsubscribePreferences
+) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
   <html data-editor-version="2" class="sg-campaigns" xmlns="http://www.w3.org/1999/xhtml">
       <head>
@@ -119,7 +132,7 @@ emails.register = (name, url, emailSoporte) => {
     </style>
       <style>
         @media screen and (max-width:480px) {
-          table\0 {
+          table {
             width: 480px !important;
             }
         }
@@ -158,15 +171,7 @@ emails.register = (name, url, emailSoporte) => {
           <td height="100%" valign="top"><table width="540" style="width:540px; border-spacing:0; border-collapse:collapse; margin:0px 10px 0px 10px;" cellpadding="0" cellspacing="0" align="left" border="0" bgcolor="" class="column column-0">
         <tbody>
           <tr>
-            <td style="padding:0px;margin:0px;border-spacing:0;"><table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="72aac1ba-9036-4a77-b9d5-9a60d9b05cba">
-      <tbody>
-        <tr>
-          <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
-            <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="29" alt="" data-proportionally-constrained="true" data-responsive="false" src="http://cdn.mcauto-images-production.sendgrid.net/954c252fedab403f/9200c1c9-b1bd-47ed-993c-ee2950a0f239/29x27.png" height="27">
-          </td>
-        </tr>
-      </tbody>
-    </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="331cde94-eb45-45dc-8852-b7dbeb9101d7">
+            <td style="padding:0px;margin:0px;border-spacing:0;"><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="331cde94-eb45-45dc-8852-b7dbeb9101d7">
       <tbody>
         <tr>
           <td style="padding:0px 0px 20px 0px;" role="module-content" bgcolor="">
@@ -177,7 +182,7 @@ emails.register = (name, url, emailSoporte) => {
       <tbody>
         <tr>
           <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
-            <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px;" width="95" alt="" data-proportionally-constrained="true" data-responsive="false" src="http://cdn.mcauto-images-production.sendgrid.net/954c252fedab403f/61156dfa-7b7f-4020-85f8-a586addf4288/95x33.png" height="33">
+            <img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:50% !important; width:50%; height:auto !important;" width="NaN" alt="" data-proportionally-constrained="true" data-responsive="true" src="http://cdn.mcauto-images-production.sendgrid.net/2badb1a48c268c94/78ef625a-36a3-47a5-a898-8d2e36db5231/999x424.png">
           </td>
         </tr>
       </tbody>
@@ -191,7 +196,7 @@ emails.register = (name, url, emailSoporte) => {
     </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="948e3f3f-5214-4721-a90e-625a47b1c957" data-mc-module-version="2019-10-22">
       <tbody>
         <tr>
-          <td style="padding:50px 30px 18px 30px; line-height:36px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 43px">Gracias por registrarte, Emanuel!</span></div><div></div></div></td>
+          <td style="padding:50px 30px 18px 30px; line-height:36px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 43px">Gracias por registrarte, ${name}!</span></div><div></div></div></td>
         </tr>
       </tbody>
     </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="a10dcb57-ad22-4f4d-b765-1d427dfddb4e" data-mc-module-version="2019-10-22">
@@ -216,7 +221,7 @@ emails.register = (name, url, emailSoporte) => {
                 <tbody>
                   <tr>
                   <td align="center" bgcolor="#ffbe00" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                    <a href="" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Verificar correo</a>
+                    <a href="${urlFrontend}/confirm?email=${email}&tokenConfirm=${tokenConfirm}" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Verificar correo</a>
                   </td>
                   </tr>
                 </tbody>
@@ -251,7 +256,7 @@ emails.register = (name, url, emailSoporte) => {
                 <tbody>
                   <tr>
                   <td align="center" bgcolor="#ffbe00" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                    <a href="" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Contacto de soporte</a>
+                    <a href="mailto:${emailSoporte}?subject=Tengo%20un%20problema%20con%20mi%20cuenta" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Contacto de soporte</a>
                   </td>
                   </tr>
                 </tbody>
@@ -272,7 +277,7 @@ emails.register = (name, url, emailSoporte) => {
       </table></td>
         </tr>
       </tbody>
-    </table><div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5"><div class="Unsubscribe--addressLine"><p class="Unsubscribe--senderName" style="font-size:12px; line-height:20px;"> Carlos Lopez </p><p style="font-size:12px; line-height:20px;"><span class="Unsubscribe--senderAddress"> Oaxaca de juarez </span>, <span class="Unsubscribe--senderCity"> Oaxaca </span>, <span class="Unsubscribe--senderState"> Oaxaca </span> <span class="Unsubscribe--senderZip"> 68000 </span></p></div><p style="font-size:12px; line-height:20px;"><a class="Unsubscribe--unsubscribeLink" href="hola.com" target="_blank" style="">Unsubscribe</a> - <a href="bebe.com" target="_blank" class="Unsubscribe--unsubscribePreferences" style="">Unsubscribe Preferences</a></p></div></td>
+    </table><div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5"><div class="Unsubscribe--addressLine"><p class="Unsubscribe--senderName" style="font-size:12px; line-height:20px;">${senderName}</p><p style="font-size:12px; line-height:20px;"><span class="Unsubscribe--senderAddress">${senderAddress}</span>, <span class="Unsubscribe--senderCity">${senderCity}</span>, <span class="Unsubscribe--senderState">${senderState}</span> <span class="Unsubscribe--senderZip">${senderZip}</span></p></div><p style="font-size:12px; line-height:20px;"><a class="Unsubscribe--unsubscribeLink" href="${linkUnsubscribe}" target="_blank" style="">Unsubscribe</a> - <a href="${linkUnsubscribePreferences}" target="_blank" class="Unsubscribe--unsubscribePreferences" style="">Unsubscribe Preferences</a></p></div></td>
                                         </tr>
                                       </table>
                                       <!--[if mso]>
@@ -293,8 +298,7 @@ emails.register = (name, url, emailSoporte) => {
           </div>
         </center>
       </body>
-    </html>
-    `;
+    </html>`;
 };
 
 module.exports = emails;
