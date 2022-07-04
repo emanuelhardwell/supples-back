@@ -36,4 +36,31 @@ authCtrl.createUser = async (req, res = response) => {
   }
 };
 
+authCtrl.login = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return responseErrorCode(res, "Correo o contraseña incorrecta", 404);
+    }
+
+    const comparePassword = bcrypt.compareSync(password, user.password);
+    if (!comparePassword) {
+      return responseErrorCode(res, "Correo o contraseña incorrecta", 404);
+    }
+
+    const token = generateJwt(user.id, user.name);
+
+    responseSuccessfully(res, "Login correcto", 200, {
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
 module.exports = authCtrl;
