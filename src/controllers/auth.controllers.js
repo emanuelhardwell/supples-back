@@ -7,12 +7,21 @@ const {
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const generateJwt = require("../helpers/generateJwt");
+const { emailRegister } = require("../email/emailRegister");
 
 const sgMail = require("@sendgrid/mail");
-const { register } = require("../email/emailRegister");
+const cryptoRandomString = require("crypto-random-string");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const emailInfo = process.env.EMAIL_INFO;
 const emailSoporte = process.env.EMAIL_SOPORTE;
+const urlFrontend = process.env.urlFrontend;
+const senderName = process.env.senderName;
+const senderAddress = process.env.senderAddress;
+const senderCity = process.env.senderCity;
+const senderState = process.env.senderState;
+const senderZip = process.env.senderZip;
+const linkUnsubscribe = process.env.linkUnsubscribe;
+const linkUnsubscribePreferences = process.env.linkUnsubscribePreferences;
 
 const authCtrl = {};
 
@@ -26,11 +35,30 @@ authCtrl.createUser = async (req, res = response) => {
       return responseErrorCode(res, "Usuario no disponible", 400);
     }
 
+    let tokenConfirm = "";
+    tokenConfirm = await cryptoRandomString({
+      length: 30,
+      type: "url-safe",
+    });
+
     const msg = {
       to: email,
       from: emailInfo,
       subject: "Registro exitoso !!",
-      html: register(name, "instagram.com", emailSoporte),
+      html: emailRegister(
+        name,
+        urlFrontend,
+        email,
+        tokenConfirm,
+        emailSoporte,
+        senderName,
+        senderAddress,
+        senderCity,
+        senderState,
+        senderZip,
+        linkUnsubscribe,
+        linkUnsubscribePreferences
+      ),
     };
 
     try {
@@ -41,6 +69,7 @@ authCtrl.createUser = async (req, res = response) => {
 
     user = req.body;
     user.password = bcrypt.hashSync(password, 10);
+    user.confirmEmailToken = tokenConfirm;
 
     const userSaved = await User.create(user);
     const token = generateJwt(userSaved.id, userSaved.name);
