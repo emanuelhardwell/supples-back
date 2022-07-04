@@ -1,7 +1,9 @@
 const errorMiddleware = (err, req, res, next) => {
   const httpStatus = err.status || 500;
 
+  console.log("----- " + err.message + " -----" || "- Internal server error -");
   return res.status(httpStatus).json({
+    ok: false,
     status: httpStatus,
     message: err.message || "Internal server error",
   });
