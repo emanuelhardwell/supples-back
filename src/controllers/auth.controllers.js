@@ -63,4 +63,19 @@ authCtrl.login = async (req, res = response) => {
   }
 };
 
+authCtrl.renewToken = (req, res) => {
+  const { uid, name } = req;
+  try {
+    const token = generateJwt(uid, name);
+
+    responseSuccessfully(res, "Token renovado", 200, {
+      uid,
+      name,
+      token,
+    });
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
 module.exports = authCtrl;
