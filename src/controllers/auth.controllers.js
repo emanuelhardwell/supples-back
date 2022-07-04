@@ -8,16 +8,35 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const generateJwt = require("../helpers/generateJwt");
 
+const sgMail = require("@sendgrid/mail");
+const { register } = require("../email/emailRegister");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const emailInfo = process.env.EMAIL_INFO;
+const emailSoporte = process.env.EMAIL_SOPORTE;
+
 const authCtrl = {};
 
 authCtrl.createUser = async (req, res = response) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     let user = await User.findOne({ where: { email } });
 
     if (user) {
       return responseErrorCode(res, "Usuario no disponible", 400);
+    }
+
+    const msg = {
+      to: email,
+      from: emailInfo,
+      subject: "Registro exitoso !!",
+      html: register(name, "instagram.com", emailSoporte),
+    };
+
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      return responseError500(res, error);
     }
 
     user = req.body;
