@@ -111,6 +111,27 @@ authCtrl.login = async (req, res = response) => {
   }
 };
 
+authCtrl.confirmEmailToken = async (req, res = response) => {
+  const { email, tokenConfirm } = req.query;
+  console.log(email, tokenConfirm);
+
+  try {
+    let user = await User.findOne({ where: { email, tokenConfirm } });
+
+    if (!user) {
+      return responseErrorCode(res, "Correo o token incorrecto", 404);
+    }
+
+    user.tokenConfirm = null;
+    user.isEmailConfirmed = true;
+    await user.save();
+
+    responseSuccessfully(res, "Correo confirmado", 200, {});
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
 authCtrl.renewToken = (req, res) => {
   const { uid, name } = req;
   try {

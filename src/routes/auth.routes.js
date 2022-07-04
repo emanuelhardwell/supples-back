@@ -1,9 +1,10 @@
 const { Router } = require("express");
-const { check, body, param } = require("express-validator");
+const { check, body, param, query } = require("express-validator");
 const {
   createUser,
   login,
   renewToken,
+  confirmEmailToken,
 } = require("../controllers/auth.controllers");
 const { validateInputs } = require("../middlewares/inputValidate.middleware");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
@@ -37,6 +38,16 @@ routerAuth.post(
     validateInputs,
   ],
   login
+);
+
+routerAuth.get(
+  "/confirm",
+  [
+    query("email", "El correo es requerido").isEmail(),
+    query("tokenConfirm", "El token es requerido").isLength({ min: 30 }),
+    validateInputs,
+  ],
+  confirmEmailToken
 );
 
 routerAuth.get("/renew", validateJwt, renewToken);
