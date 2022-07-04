@@ -69,7 +69,7 @@ authCtrl.createUser = async (req, res = response) => {
 
     user = req.body;
     user.password = bcrypt.hashSync(password, 10);
-    user.confirmEmailToken = tokenConfirm;
+    user.tokenConfirm = tokenConfirm;
 
     const userSaved = await User.create(user);
     const token = generateJwt(userSaved.id, userSaved.name);

@@ -45,7 +45,7 @@ const User = sequelize.define(
       allowNull: false,
       defaultValue: false,
     },
-    confirmEmailToken: {
+    tokenConfirm: {
       type: DataTypes.STRING,
       allowNull: true,
     },
