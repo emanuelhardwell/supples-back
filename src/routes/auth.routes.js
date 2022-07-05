@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { check, body, param, query } = require("express-validator");
 const {
   createUser,
   login,
@@ -8,66 +7,37 @@ const {
   resetPassword,
   updatePassword,
 } = require("../controllers/auth.controllers");
-const { validateInputs } = require("../middlewares/inputValidate.middleware");
+const schemaValidate = require("../middlewares/schemaValidate.middlewares");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
+const {
+  createUserSchema,
+  loginUserSchema,
+  confirmEmailUserSchema,
+  resetPasswordUserSchema,
+  updatePasswordUserSchema,
+} = require("../schemas/auth.schema");
 
 const routerAuth = Router();
 
-routerAuth.post(
-  "/create",
-  [
-    body("name", "El nombre es requerido").notEmpty(),
-    body("lastname", "El apellido paterno es requerido").notEmpty(),
-    body("lastname2", "El apellido materno es requerido").optional(),
-    body("email", "El correo es requerido").isEmail(),
-    body(
-      "password",
-      "La contraseña es requerida y debe ser mayor a 5 caracteres"
-    ).isLength({ min: 6 }),
-    validateInputs,
-  ],
-  createUser
-);
+routerAuth.post("/create", schemaValidate(createUserSchema), createUser);
 
-routerAuth.post(
-  "/login",
-  [
-    body("email", "El correo es requerido").isEmail(),
-    body(
-      "password",
-      "La contraseña es requerida y debe ser mayor a 5 caracteres"
-    ).isLength({ min: 6 }),
-    validateInputs,
-  ],
-  login
-);
+routerAuth.post("/login", schemaValidate(loginUserSchema), login);
 
 routerAuth.get(
   "/confirm",
-  [
-    query("email", "El correo es requerido").isEmail(),
-    query("tokenConfirm", "El token es requerido").isLength({ min: 30 }),
-    validateInputs,
-  ],
+  schemaValidate(confirmEmailUserSchema),
   confirmEmailToken
 );
 
 routerAuth.post(
   "/reset-password",
-  [body("email", "El correo es requerido").isEmail(), validateInputs],
+  schemaValidate(resetPasswordUserSchema),
   resetPassword
 );
 
 routerAuth.post(
   "/update-password",
-  [
-    body(
-      "password",
-      "La contraseña es requerida y debe ser mayor a 5 caracteres"
-    ).isLength({ min: 6 }),
-    body("token", "El token es requerido").notEmpty(),
-    validateInputs,
-  ],
+  schemaValidate(updatePasswordUserSchema),
   updatePassword
 );
 

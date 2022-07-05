@@ -221,7 +221,7 @@ emails.emailRegister = (
                 <tbody>
                   <tr>
                   <td align="center" bgcolor="#ffbe00" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                    <a href="${urlFrontend}/confirm?email=${email}&tokenConfirm=${tokenConfirm}" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Verificar correo</a>
+                    <a href="${urlFrontend}/confirm?email=${email}&token=${tokenConfirm}" style="background-color:#ffbe00; border:1px solid #ffbe00; border-color:#ffbe00; border-radius:0px; border-width:1px; color:#000000; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 40px 12px 40px; text-align:center; text-decoration:none; border-style:solid; font-family:inherit;" target="_blank">Verificar correo</a>
                   </td>
                   </tr>
                 </tbody>
@@ -241,7 +241,7 @@ emails.emailRegister = (
         <tr>
           <td style="padding:50px 30px 50px 30px; line-height:22px; text-align:inherit; background-color:#6e6e6e;" height="100%" valign="top" bgcolor="#6e6e6e" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="color: #ffffff; font-size: 18px"><strong>Esto es lo que sucede a continuación:</strong></span></div>
   <div style="font-family: inherit; text-align: center"><br></div>
-  <div style="font-family: inherit; text-align: center"><span style="color: #ffffff; font-size: 18px">1. Solamente cuenta con 20 minutos para validar su correo electrónico.</span></div>
+  <div style="font-family: inherit; text-align: center"><span style="color: #ffffff; font-size: 18px">1. Necesita validar su correo electrónico para poder iniciar sesión.</span></div>
   <div style="font-family: inherit; text-align: center"><br></div>
   <div style="font-family: inherit; text-align: center"><br></div>
   <div style="font-family: inherit; text-align: center"><br></div>
