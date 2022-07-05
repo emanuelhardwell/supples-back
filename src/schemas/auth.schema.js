@@ -101,11 +101,11 @@ authSchema.updatePasswordUserSchema = Joi.object({
       "string.max": `Contraseña debe tener maximo 25 letras`,
       "any.required": `Contraseña es obligatorio`,
     }),
-    token: Joi.string().min(6).max(8).required().messages({
+    token: Joi.string().min(10).max(20).required().messages({
       "string.base": `Token debe ser un texto`,
       "string.empty": `Token no puede venir vacio`,
-      "string.min": `Token debe tener minimo 6 letras`,
-      "string.max": `Token debe tener maximo 8 letras`,
+      "string.min": `Token debe tener minimo 10 letras`,
+      "string.max": `Token debe tener maximo 20 letras`,
       "any.required": `Token es obligatorio`,
     }),
   }),
