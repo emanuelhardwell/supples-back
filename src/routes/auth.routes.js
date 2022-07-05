@@ -1,9 +1,9 @@
 const { Router } = require("express");
 const {
   createUser,
-  login,
+  loginUser,
   renewToken,
-  confirmEmailToken,
+  confirmEmailUser,
   resetPassword,
   updatePassword,
 } = require("../controllers/auth.controllers");
@@ -21,12 +21,12 @@ const routerAuth = Router();
 
 routerAuth.post("/create", schemaValidate(createUserSchema), createUser);
 
-routerAuth.post("/login", schemaValidate(loginUserSchema), login);
+routerAuth.post("/login", schemaValidate(loginUserSchema), loginUser);
 
 routerAuth.get(
   "/confirm",
   schemaValidate(confirmEmailUserSchema),
-  confirmEmailToken
+  confirmEmailUser
 );
 
 routerAuth.post(

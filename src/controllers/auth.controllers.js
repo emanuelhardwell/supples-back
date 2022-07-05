@@ -85,7 +85,7 @@ authCtrl.createUser = async (req, res = response) => {
   }
 };
 
-authCtrl.login = async (req, res = response) => {
+authCtrl.loginUser = async (req, res = response) => {
   const { email, password } = req.body;
 
   try {
@@ -120,7 +120,7 @@ authCtrl.login = async (req, res = response) => {
   }
 };
 
-authCtrl.confirmEmailToken = async (req, res = response) => {
+authCtrl.confirmEmailUser = async (req, res = response) => {
   const { email, token } = req.query;
 
   try {
