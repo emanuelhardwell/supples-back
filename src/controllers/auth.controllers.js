@@ -94,6 +94,14 @@ authCtrl.login = async (req, res = response) => {
       return responseErrorCode(res, "Correo o contraseña incorrecta", 404);
     }
 
+    if (!user.isEmailConfirmed) {
+      return responseErrorCode(
+        res,
+        "Necesitas confirmar tu correo antes de iniciar sesión",
+        404
+      );
+    }
+
     const comparePassword = bcrypt.compareSync(password, user.password);
     if (!comparePassword) {
       return responseErrorCode(res, "Correo o contraseña incorrecta", 404);
