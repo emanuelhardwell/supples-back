@@ -11,6 +11,7 @@ const { emailRegister } = require("../email/emailRegister");
 
 const sgMail = require("@sendgrid/mail");
 const cryptoRandomString = require("crypto-random-string");
+const { emailResetPassword } = require("../email/emailResetPassword");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const emailInfo = process.env.EMAIL_INFO;
 const emailSoporte = process.env.EMAIL_SOPORTE;
@@ -121,7 +122,6 @@ authCtrl.login = async (req, res = response) => {
 
 authCtrl.confirmEmailToken = async (req, res = response) => {
   const { email, tokenConfirm } = req.query;
-  console.log(email, tokenConfirm);
 
   try {
     let user = await User.findOne({ where: { email, tokenConfirm } });
@@ -135,6 +135,65 @@ authCtrl.confirmEmailToken = async (req, res = response) => {
     await user.save();
 
     responseSuccessfully(res, "Correo confirmado", 200, {});
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
+authCtrl.resetPassword = async (req, res = response) => {
+  const { email } = req.body;
+
+  try {
+    let user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return responseSuccessfully(
+        res,
+        "1.- Revisa tu correo electrónico y sigue los pasos. Si no recibe un correo y no está en su carpeta de correo no deseado, esto podría significar que se registró con una dirección diferente",
+        200,
+        {}
+      );
+    }
+
+    let tokenConfirm = "";
+    tokenConfirm = await cryptoRandomString({
+      length: 10,
+      type: "url-safe",
+    });
+
+    user.resetToken = tokenConfirm;
+    user.resetTokenExpiration = Date.now() + 450000;
+    await user.save();
+
+    const msg = {
+      to: email,
+      from: emailInfo,
+      subject: "Restablecer la contraseña !!",
+      html: emailResetPassword(
+        user.name,
+        tokenConfirm,
+        senderName,
+        senderAddress,
+        senderCity,
+        senderState,
+        senderZip,
+        linkUnsubscribe,
+        linkUnsubscribePreferences
+      ),
+    };
+
+    try {
+      await sgMail.send(msg);
+    } catch (error) {
+      return responseError500(res, error);
+    }
+
+    responseSuccessfully(
+      res,
+      "Revisa tu correo electrónico y sigue los pasos. Si no recibe un correo y no está en su carpeta de correo no deseado, esto podría significar que se registró con una dirección diferente",
+      200,
+      {}
+    );
   } catch (error) {
     responseError500(res, error);
   }

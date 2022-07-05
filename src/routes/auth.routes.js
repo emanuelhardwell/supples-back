@@ -5,6 +5,7 @@ const {
   login,
   renewToken,
   confirmEmailToken,
+  resetPassword,
 } = require("../controllers/auth.controllers");
 const { validateInputs } = require("../middlewares/inputValidate.middleware");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
@@ -48,6 +49,12 @@ routerAuth.get(
     validateInputs,
   ],
   confirmEmailToken
+);
+
+routerAuth.post(
+  "/reset-password",
+  [body("email", "El correo es requerido").isEmail(), validateInputs],
+  resetPassword
 );
 
 routerAuth.get("/renew", validateJwt, renewToken);
