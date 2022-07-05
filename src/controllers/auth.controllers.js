@@ -121,10 +121,10 @@ authCtrl.login = async (req, res = response) => {
 };
 
 authCtrl.confirmEmailToken = async (req, res = response) => {
-  const { email, tokenConfirm } = req.query;
+  const { email, token } = req.query;
 
   try {
-    let user = await User.findOne({ where: { email, tokenConfirm } });
+    let user = await User.findOne({ where: { email, tokenConfirm: token } });
 
     if (!user) {
       return responseErrorCode(res, "Correo o token incorrecto", 404);
