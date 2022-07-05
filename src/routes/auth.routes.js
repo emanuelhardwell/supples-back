@@ -6,6 +6,7 @@ const {
   renewToken,
   confirmEmailToken,
   resetPassword,
+  updatePassword,
 } = require("../controllers/auth.controllers");
 const { validateInputs } = require("../middlewares/inputValidate.middleware");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
@@ -55,6 +56,19 @@ routerAuth.post(
   "/reset-password",
   [body("email", "El correo es requerido").isEmail(), validateInputs],
   resetPassword
+);
+
+routerAuth.post(
+  "/update-password",
+  [
+    body(
+      "password",
+      "La contraseña es requerida y debe ser mayor a 5 caracteres"
+    ).isLength({ min: 6 }),
+    body("token", "El token es requerido").notEmpty(),
+    validateInputs,
+  ],
+  updatePassword
 );
 
 routerAuth.get("/renew", validateJwt, renewToken);

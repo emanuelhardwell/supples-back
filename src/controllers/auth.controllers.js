@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
 const generateJwt = require("../helpers/generateJwt");
 const { emailRegister } = require("../email/emailRegister");
-
+const { Op } = require("sequelize");
 const sgMail = require("@sendgrid/mail");
 const cryptoRandomString = require("crypto-random-string");
 const { emailResetPassword } = require("../email/emailResetPassword");
@@ -194,6 +194,32 @@ authCtrl.resetPassword = async (req, res = response) => {
       200,
       {}
     );
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
+authCtrl.updatePassword = async (req, res = response) => {
+  const { password, token } = req.body;
+
+  try {
+    let user = await User.findOne({
+      where: {
+        resetToken: token,
+        resetTokenExpiration: { [Op.gt]: Date.now() },
+      },
+    });
+
+    if (!user) {
+      return responseErrorCode(res, "Token incorrecto o Token expirado", 400);
+    }
+
+    user.password = bcrypt.hashSync(password, 10);
+    user.resetToken = null;
+    user.resetTokenExpiration = null;
+    await user.save();
+
+    responseSuccessfully(res, "Contraseña actualizada", 200, {});
   } catch (error) {
     responseError500(res, error);
   }
