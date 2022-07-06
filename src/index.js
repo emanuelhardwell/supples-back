@@ -22,6 +22,7 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/auth", require("./routes/auth.routes"));
+app.use("/api/v1/category", require("./routes/category.routes"));
 
 // middleware routes
 app.use(errorMiddleware);
