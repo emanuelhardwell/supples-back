@@ -14,6 +14,7 @@ categorySchema.createCategorySchema = Joi.object({
       "any.required": `Nombre es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 categorySchema.updateCategorySchema = Joi.object({
@@ -34,6 +35,7 @@ categorySchema.updateCategorySchema = Joi.object({
       "any.required": `Nombre es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 categorySchema.deleteCategorySchema = Joi.object({
@@ -46,6 +48,7 @@ categorySchema.deleteCategorySchema = Joi.object({
   }),
   query: Joi.object({}),
   body: Joi.object({}),
+  files: Joi.object({}),
 });
 
 module.exports = categorySchema;

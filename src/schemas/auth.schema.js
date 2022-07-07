@@ -35,6 +35,7 @@ authSchema.createUserSchema = Joi.object({
       "any.required": `Contraseña es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 authSchema.loginUserSchema = Joi.object({
@@ -55,6 +56,7 @@ authSchema.loginUserSchema = Joi.object({
       "any.required": `Contraseña es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 authSchema.confirmEmailUserSchema = Joi.object({
@@ -75,6 +77,7 @@ authSchema.confirmEmailUserSchema = Joi.object({
     }),
   }),
   body: Joi.object({}),
+  files: Joi.object({}),
 });
 
 authSchema.resetPasswordUserSchema = Joi.object({
@@ -88,6 +91,7 @@ authSchema.resetPasswordUserSchema = Joi.object({
       "any.required": `Correo es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 authSchema.updatePasswordUserSchema = Joi.object({
@@ -109,6 +113,7 @@ authSchema.updatePasswordUserSchema = Joi.object({
       "any.required": `Token es obligatorio`,
     }),
   }),
+  files: Joi.object({}),
 });
 
 module.exports = authSchema;
