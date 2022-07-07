@@ -7,6 +7,7 @@ const {
   errorMiddleware,
   notFoundMiddleware,
 } = require("./middlewares/error.middlewares");
+const fileupload = require("express-fileupload");
 
 dotenv.config();
 
@@ -19,10 +20,12 @@ dbConnection();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(fileupload({ useTempFiles: true, tempFileDir: "/tmp/" }));
 
 // Routes
 app.use("/api/v1/auth", require("./routes/auth.routes"));
 app.use("/api/v1/category", require("./routes/category.routes"));
+app.use("/api/v1/product", require("./routes/product.routes"));
 
 // middleware routes
 app.use(errorMiddleware);

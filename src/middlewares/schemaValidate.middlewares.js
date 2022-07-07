@@ -13,7 +13,9 @@ const schemaValidate =
           params: req.params,
           query: req.query,
           body: req.body,
+          files: req.files,
         }
+
         // Se puede agregar { abortEarly: false } para que muestre todos los errores
         // { abortEarly: false }
       );
