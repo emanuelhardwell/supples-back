@@ -26,6 +26,7 @@ app.use(fileupload({ useTempFiles: true, tempFileDir: "/tmp/" }));
 app.use("/api/v1/auth", require("./routes/auth.routes"));
 app.use("/api/v1/category", require("./routes/category.routes"));
 app.use("/api/v1/product", require("./routes/product.routes"));
+app.use("/api/v1/cart-item", require("./routes/CartItem.routes"));
 
 // middleware routes
 app.use(errorMiddleware);
