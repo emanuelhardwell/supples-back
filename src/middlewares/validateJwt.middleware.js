@@ -13,6 +13,8 @@ const validateJwt = (req = request, res, next) => {
     const jwtVerify = jwt.verify(token, process.env.SECRET_JWT);
     req.uid = jwtVerify.uid;
     req.name = jwtVerify.name;
+    req.rol = jwtVerify.rol;
+    req.cart = jwtVerify.cart;
 
     next();
   } catch (error) {
