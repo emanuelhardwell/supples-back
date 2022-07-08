@@ -7,12 +7,15 @@ const {
   deleteCategory,
 } = require("../controllers/category.controllers");
 const schemaValidate = require("../middlewares/schemaValidate.middlewares");
+const { validateJwt } = require("../middlewares/validateJwt.middleware");
 const {
   createCategorySchema,
   updateCategorySchema,
 } = require("../schemas/category.schema");
 
 const routerCategory = Router();
+
+routerCategory.use(validateJwt);
 
 routerCategory.get("/", getCategories);
 

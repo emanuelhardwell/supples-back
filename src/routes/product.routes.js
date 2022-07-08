@@ -7,12 +7,15 @@ const {
   deleteProduct,
 } = require("../controllers/product.controllers");
 const schemaValidate = require("../middlewares/schemaValidate.middlewares");
+const { validateJwt } = require("../middlewares/validateJwt.middleware");
 const {
   createProductSchema,
   updateProductSchema,
 } = require("../schemas/product.schema");
 
 const routerProduct = Router();
+
+routerProduct.use(validateJwt);
 
 routerProduct.get("/", getProducts);
 
