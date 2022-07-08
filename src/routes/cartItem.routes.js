@@ -8,10 +8,7 @@ const {
 } = require("../controllers/CartItem.controllers");
 const schemaValidate = require("../middlewares/schemaValidate.middlewares");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
-const {
-  createCartItemSchema,
-  updateCartItemSchema,
-} = require("../schemas/cartItem.schema");
+const { createCartItemSchema } = require("../schemas/cartItem.schema");
 
 const routerCartItem = Router();
 
@@ -23,11 +20,13 @@ routerCartItem.get("/:id", getCartItem);
 
 routerCartItem.post("/", schemaValidate(createCartItemSchema), createCartItem);
 
-routerCartItem.put(
-  "/:id",
-  schemaValidate(updateCartItemSchema),
-  updateCartItem
-);
+routerCartItem.put("/", updateCartItem);
+
+// routerCartItem.put(
+//   "/:id",
+//   schemaValidate(updateCartItemSchema),
+//   updateCartItem
+// );
 
 routerCartItem.delete("/:id", deleteCartItem);
 
