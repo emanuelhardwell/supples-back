@@ -110,7 +110,15 @@ cartItemCtrl.createCartItem = async (req, res = response) => {
       through: { quantity: quantity },
     });
 
-    const cartItemSaved = await Cart.findByPk(cart, { include: Product });
+    const cartItemSaved = await Cart.findByPk(cart, {
+      include: [
+        {
+          model: Product,
+          attributes: ["id", "name", "price", "imageUrl"],
+          through: { where: { productId: cartProduct.id } },
+        },
+      ],
+    });
     if (!cartItemSaved) {
       return responseErrorCode(
         res,
@@ -146,7 +154,15 @@ cartItemCtrl.updateCartItem = async (req, res = response) => {
       through: { quantity: quantity },
     });
 
-    const cartItemSaved = await Cart.findByPk(cart, { include: Product });
+    const cartItemSaved = await Cart.findByPk(cart, {
+      include: [
+        {
+          model: Product,
+          attributes: ["id", "name", "price", "imageUrl"],
+          through: { where: { productId: cartProduct.id } },
+        },
+      ],
+    });
     if (!cartItemSaved) {
       return responseErrorCode(
         res,
