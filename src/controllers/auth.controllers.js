@@ -12,6 +12,7 @@ const { Op } = require("sequelize");
 const sgMail = require("@sendgrid/mail");
 const cryptoRandomString = require("crypto-random-string");
 const { emailResetPassword } = require("../email/emailResetPassword");
+const Cart = require("../models/Cart.model");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const emailInfo = process.env.EMAIL_INFO;
 const emailSoporte = process.env.EMAIL_SOPORTE;
@@ -73,11 +74,26 @@ authCtrl.createUser = async (req, res = response) => {
     user.tokenConfirm = tokenConfirm;
 
     const userSaved = await User.create(user);
-    const token = generateJwt(userSaved.id, userSaved.name);
+
+    let cart;
+    try {
+      cart = await Cart.create({ userId: userSaved.id });
+    } catch (error) {
+      await User.destroy({ where: { id: userSaved.id } });
+      return responseErrorCode(res, "Error al generar el carrito", 400);
+    }
+
+    const token = generateJwt(
+      userSaved.id,
+      userSaved.name,
+      userSaved.rol,
+      cart.id
+    );
 
     responseSuccessfully(res, "Usuario creado", 201, {
       uid: userSaved.id,
       name: userSaved.name,
+      rol: userSaved.rol,
       token,
     });
   } catch (error) {
@@ -108,11 +124,22 @@ authCtrl.loginUser = async (req, res = response) => {
       return responseErrorCode(res, "Correo o contraseña incorrecta", 404);
     }
 
-    const token = generateJwt(user.id, user.name);
+    // consultar table Cart
+    const cart = await Cart.findOne({ where: { userId: user.id } });
+    if (!cart) {
+      return responseErrorCode(
+        res,
+        "El carrito vinculado a tu cuenta no se encontro",
+        404
+      );
+    }
+
+    const token = generateJwt(user.id, user.name, user.rol, cart.id);
 
     responseSuccessfully(res, "Login correcto", 200, {
       uid: user.id,
       name: user.name,
+      rol: user.rol,
       token,
     });
   } catch (error) {
@@ -226,13 +253,15 @@ authCtrl.updatePassword = async (req, res = response) => {
 };
 
 authCtrl.renewToken = (req, res) => {
-  const { uid, name } = req;
+  const { uid, name, rol, cart } = req;
+
   try {
-    const token = generateJwt(uid, name);
+    const token = generateJwt(uid, name, rol, cart);
 
     responseSuccessfully(res, "Token renovado", 200, {
       uid,
       name,
+      rol,
       token,
     });
   } catch (error) {
