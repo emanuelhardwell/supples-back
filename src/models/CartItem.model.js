@@ -22,6 +22,9 @@ const CartItem = sequelize.define(
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        max: 15,
+      },
     },
   },
   {
