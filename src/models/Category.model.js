@@ -24,6 +24,8 @@ const Category = sequelize.define(
 Category.hasMany(Product, {
   foreignKey: "categoryId",
   sourceKey: "id",
+  onDelete: "RESTRICT",
+  onUpdate: "CASCADE",
 });
 
 Product.belongsTo(Category, { foreignKey: "categoryId", targetKey: "id" });
