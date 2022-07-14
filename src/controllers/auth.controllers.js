@@ -90,12 +90,17 @@ authCtrl.createUser = async (req, res = response) => {
       cart.id
     );
 
-    responseSuccessfully(res, "Usuario creado", 201, {
-      uid: userSaved.id,
-      name: userSaved.name,
-      rol: userSaved.rol,
-      token,
-    });
+    responseSuccessfully(
+      res,
+      "Usuario creado, Necesitas activar tu cuenta, favor de revisar tu correo electrónico y seguir los pasos",
+      201,
+      {
+        uid: userSaved.id,
+        name: userSaved.name,
+        rol: userSaved.rol,
+        token,
+      }
+    );
   } catch (error) {
     responseError500(res, error);
   }

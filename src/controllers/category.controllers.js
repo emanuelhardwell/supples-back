@@ -15,10 +15,10 @@ categoryCtrl.getCategory = async (req, res = response) => {
     let category = await Category.findOne({ where: { id } });
 
     if (!category) {
-      return responseErrorCode(res, "Esta categoria no existe", 404);
+      return responseErrorCode(res, "Esta categoría no existe", 404);
     }
 
-    responseSuccessfully(res, "Categoria encontrada", 200, {
+    responseSuccessfully(res, "Categoría encontrada", 200, {
       category,
     });
   } catch (error) {
@@ -30,7 +30,7 @@ categoryCtrl.getCategories = async (req, res = response) => {
   try {
     let categories = await Category.findAll();
 
-    responseSuccessfully(res, "Categorias obtenidas", 200, { categories });
+    responseSuccessfully(res, "Categorías obtenidas", 200, { categories });
   } catch (error) {
     responseError500(res, error);
   }
@@ -43,12 +43,12 @@ categoryCtrl.createCategory = async (req, res = response) => {
     let category = await Category.findOne({ where: { name } });
 
     if (category) {
-      return responseErrorCode(res, "Esta categoria ya existe", 400);
+      return responseErrorCode(res, "Esta categoría ya existe", 400);
     }
 
     const categorySaved = await Category.create(req.body);
 
-    responseSuccessfully(res, "Categoria creada", 200, {
+    responseSuccessfully(res, "Categoría creada", 200, {
       category: categorySaved,
     });
   } catch (error) {
@@ -63,7 +63,7 @@ categoryCtrl.updateCategory = async (req, res = response) => {
     let category = await Category.findOne({ where: { id } });
 
     if (!category) {
-      return responseErrorCode(res, "Esta categoria no existe", 404);
+      return responseErrorCode(res, "Esta categoría no existe", 404);
     }
 
     const categorySaved = await Category.update(req.body, {
@@ -71,12 +71,12 @@ categoryCtrl.updateCategory = async (req, res = response) => {
     });
 
     if (categorySaved[0] !== 1) {
-      return responseErrorCode(res, "Error al actualizar la categoria", 404);
+      return responseErrorCode(res, "Error al actualizar la categoría", 404);
     }
 
     const categoryUpdated = await Category.findByPk(id);
 
-    responseSuccessfully(res, "Categoria actualizada", 200, {
+    responseSuccessfully(res, "Categoría actualizada", 200, {
       category: categoryUpdated,
     });
   } catch (error) {
@@ -91,12 +91,12 @@ categoryCtrl.deleteCategory = async (req, res = response) => {
     let category = await Category.findOne({ where: { id } });
 
     if (!category) {
-      return responseErrorCode(res, "Esta categoria no existe", 404);
+      return responseErrorCode(res, "Esta categoría no existe", 404);
     }
 
     await Category.destroy({ where: { id } });
 
-    responseSuccessfully(res, "Categoria eliminada", 200, {});
+    responseSuccessfully(res, "Categoría eliminada", 200, {});
   } catch (error) {
     responseError500(res, error);
   }
