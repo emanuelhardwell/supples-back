@@ -44,6 +44,31 @@ productCtrl.getProducts = async (req, res = response) => {
   }
 };
 
+productCtrl.getProductsByPagination = async (req, res = response) => {
+  const { page = 1 } = req.query;
+  const limit = 6;
+  let startIndex = (Number(page) - 1) * limit;
+  let numberOfPages;
+
+  try {
+    let { count, rows } = await Product.findAndCountAll({
+      offset: startIndex,
+      limit,
+      order: [["createdAt", "ASC"]],
+    });
+
+    numberOfPages = Math.ceil(count / limit);
+
+    responseSuccessfully(res, "Productos obtenidos", 200, {
+      numberOfPages: numberOfPages,
+      currentPage: Number(page),
+      products: rows,
+    });
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
 productCtrl.createProduct = async (req, res = response) => {
   const { name } = req.body;
   const file = req.files.image;

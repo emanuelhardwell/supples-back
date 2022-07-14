@@ -5,6 +5,7 @@ const {
   getProducts,
   getProduct,
   deleteProduct,
+  getProductsByPagination,
 } = require("../controllers/product.controllers");
 const schemaValidate = require("../middlewares/schemaValidate.middlewares");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
@@ -18,6 +19,8 @@ const routerProduct = Router();
 routerProduct.use(validateJwt);
 
 routerProduct.get("/", getProducts);
+
+routerProduct.get("/products", getProductsByPagination);
 
 routerProduct.get("/:id", getProduct);
 
