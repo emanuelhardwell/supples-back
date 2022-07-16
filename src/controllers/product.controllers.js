@@ -7,6 +7,7 @@ const {
 const Product = require("../models/Product.model");
 const fs = require("fs-extra");
 const cloudinary = require("cloudinary");
+const { Op } = require("sequelize");
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -46,18 +47,24 @@ productCtrl.getProducts = async (req, res = response) => {
 
 productCtrl.getProductsByPagination = async (req, res = response) => {
   const { page = 1 } = req.query;
-  const limit = 6;
-  let startIndex = (Number(page) - 1) * limit;
+  const { name = "" } = req.query;
+  const LIMIT = 6;
+  let startIndex = (Number(page) - 1) * LIMIT;
   let numberOfPages;
 
   try {
     let { count, rows } = await Product.findAndCountAll({
+      where: {
+        name: {
+          [Op.like]: `%${name}%`,
+        },
+      },
       offset: startIndex,
-      limit,
+      limit: LIMIT,
       order: [["createdAt", "ASC"]],
     });
 
-    numberOfPages = Math.ceil(count / limit);
+    numberOfPages = Math.ceil(count / LIMIT);
 
     responseSuccessfully(res, "Productos obtenidos", 200, {
       numberOfPages: numberOfPages,

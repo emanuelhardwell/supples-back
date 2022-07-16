@@ -8,7 +8,7 @@ A full-stack e-commerce project built with Nodejs, Express, MySQL, sequelize(ORM
 npm install
 ```
 
-## Dev and Pro enviroment using node 📦
+## Dev and Pro enviroment using node 🌐
 
 ```
 npm start   # Bring up the production environment
