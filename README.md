@@ -1,28 +1,27 @@
-# Nodejs-supples-backend
+# supples-backend-Nodejs
 
 A full-stack e-commerce project built with Nodejs, Express, MySQL, sequelize(ORM).
 
 ## Install dependencies 📦
 
 ```
-npm: npm i
-yarn: yan
+npm install
 ```
 
 ## Dev and Pro enviroment using node 📦
 
 ```
-npm start
-npm run dev
+npm start   # Bring up the production environment
+npm run dev   # Bring up the development environment
 ```
 
 ## Open your browser 🚀
 
-[localhost:3000](http://localhost:3000)
+[localhost:5000](http://localhost:5000)
 
 ## Devs ✒️
 
-- **Emanuel Vásquez** - _Dev_ - [EmanuelVasquez](https://emanuelhardwell.github.io/)
+- **Emanuel Vásquez** - _Dev_ - [website](https://emanuelhardwell.github.io/)
 
 
 
