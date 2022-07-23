@@ -89,7 +89,7 @@ productCtrl.createProduct = async (req, res = response) => {
 
     // Se agrega la imagen
     const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-      folder: "diet",
+      folder: "supples",
     });
 
     const productAddImage = req.body;
@@ -122,7 +122,7 @@ productCtrl.updateProduct = async (req, res = response) => {
     await cloudinary.v2.uploader.destroy(product.imageId);
 
     const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-      folder: "diet",
+      folder: "supples",
     });
 
     const productAddImage = req.body;
