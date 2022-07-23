@@ -21,6 +21,7 @@
   "homepage": "https://github.com/emanuelhardwell/diet-back#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "apicache": "^1.6.3",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.30.0",
     "cors": "^2.8.5",

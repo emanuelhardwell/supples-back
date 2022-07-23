@@ -13,6 +13,8 @@ const {
   createProductSchema,
   updateProductSchema,
 } = require("../schemas/product.schema");
+const apicache = require("apicache");
+let cache = apicache.middleware;
 
 const routerProduct = Router();
 
@@ -20,9 +22,9 @@ routerProduct.use(validateJwt);
 
 routerProduct.get("/", getProducts);
 
-routerProduct.get("/products", getProductsByPagination);
+routerProduct.get("/products", cache("4 minutes"), getProductsByPagination);
 
-routerProduct.get("/:id", getProduct);
+routerProduct.get("/:id", cache("4 minutes"), getProduct);
 
 routerProduct.post("/", schemaValidate(createProductSchema), createProduct);
 

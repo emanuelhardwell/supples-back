@@ -98,6 +98,13 @@ categoryCtrl.deleteCategory = async (req, res = response) => {
 
     responseSuccessfully(res, "Categoría eliminada", 200, {});
   } catch (error) {
+    if (error.name === "SequelizeForeignKeyConstraintError") {
+      return responseErrorCode(
+        res,
+        "No puede eliminar esta categoría porque esta en uso",
+        400
+      );
+    }
     responseError500(res, error);
   }
 };
