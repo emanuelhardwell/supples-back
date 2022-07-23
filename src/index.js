@@ -8,6 +8,7 @@ const {
   notFoundMiddleware,
 } = require("./middlewares/error.middlewares");
 const fileupload = require("express-fileupload");
+const helmet = require("helmet");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const app = express();
 dbConnection();
 
 // Middlewares
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));

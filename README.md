@@ -25,4 +25,4 @@ npm run dev   # Bring up the development environment
 
 
 
-⌨️ Make with ❤️
+⌨️ Made with ❤️
