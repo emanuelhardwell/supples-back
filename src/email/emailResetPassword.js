@@ -213,7 +213,7 @@ emails.emailResetPassword = (
       <tbody>
         <tr>
           <td style="padding:18px 40px 10px 0px; line-height:18px; text-align:inherit;" height="100%" valign="top" bgcolor="" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="color: #00634a"><strong>La protección de sus datos es importante para nosotros.</strong></span></div>
-  <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a"><strong>Por favor, copie el código de abajo, y diríjase a la pagina de Diet Full para cambiar su contraseña .</strong></span></div><div></div></div></td>
+  <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a"><strong>Por favor, copie el código de abajo, y diríjase a la pagina de Supples Store para cambiar su contraseña .</strong></span></div><div></div></div></td>
         </tr>
       </tbody>
     </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="c97177b8-c172-4c4b-b5bd-7604cde23e3f">
@@ -255,7 +255,7 @@ emails.emailResetPassword = (
   <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a"><br>
   </span></div>
   <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a">Llámenos al +52 9512971122</span></div>
-  <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a">o al correo electrónico security-diet.support@gmail.com</span></div><div></div></div></td>
+  <div style="font-family: inherit; text-align: inherit"><span style="color: #00634a">o al correo electrónico security-supples.support@gmail.com</span></div><div></div></div></td>
         </tr>
       </tbody>
     </table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="c97177b8-c172-4c4b-b5bd-7604cde23e3f.1.1">

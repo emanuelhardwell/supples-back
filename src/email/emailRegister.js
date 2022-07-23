@@ -202,7 +202,7 @@ emails.emailRegister = (
     </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="a10dcb57-ad22-4f4d-b765-1d427dfddb4e" data-mc-module-version="2019-10-22">
       <tbody>
         <tr>
-          <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">Verifique su dirección de correo electrónico para obtener acceso al sistema de dietas.</span></div>
+          <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#ffffff;" height="100%" valign="top" bgcolor="#ffffff" role="module-content"><div><div style="font-family: inherit; text-align: center"><span style="font-size: 18px">Verifique su dirección de correo electrónico para obtener acceso a Supples Store.</span></div>
   <div style="font-family: inherit; text-align: center"><span style="color: #ffbe00; font-size: 18px"><strong>¡Gracias!</strong></span></div><div></div></div></td>
         </tr>
       </tbody>
