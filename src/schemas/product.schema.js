@@ -6,18 +6,18 @@ productSchema.createProductSchema = Joi.object({
   params: Joi.object({}),
   query: Joi.object({}),
   body: Joi.object({
-    name: Joi.string().min(3).max(100).required().messages({
+    name: Joi.string().min(3).max(200).required().messages({
       "string.base": `Nombre debe ser un texto`,
       "string.empty": `Nombre no puede venir vacio`,
       "string.min": `Nombre debe tener minimo 3 letras`,
-      "string.max": `Nombre debe tener maximo 100 letras`,
+      "string.max": `Nombre debe tener maximo 200 letras`,
       "any.required": `Nombre es obligatorio`,
     }),
-    description: Joi.string().min(3).max(250).required().messages({
+    description: Joi.string().min(3).max(600).required().messages({
       "string.base": `Description debe ser un texto`,
       "string.empty": `Description no puede venir vacio`,
       "string.min": `Description debe tener minimo 3 letras`,
-      "string.max": `Description debe tener maximo 250 letras`,
+      "string.max": `Description debe tener maximo 600 letras`,
       "any.required": `Description es obligatorio`,
     }),
     price: Joi.number().greater(1.12).precision(2).required().messages({
@@ -59,18 +59,18 @@ productSchema.updateProductSchema = Joi.object({
   }),
   query: Joi.object({}),
   body: Joi.object({
-    name: Joi.string().min(3).max(100).required().messages({
+    name: Joi.string().min(3).max(200).required().messages({
       "string.base": `Nombre debe ser un texto`,
       "string.empty": `Nombre no puede venir vacio`,
       "string.min": `Nombre debe tener minimo 3 letras`,
-      "string.max": `Nombre debe tener maximo 100 letras`,
+      "string.max": `Nombre debe tener maximo 200 letras`,
       "any.required": `Nombre es obligatorio`,
     }),
-    description: Joi.string().min(3).max(250).required().messages({
+    description: Joi.string().min(3).max(600).required().messages({
       "string.base": `Description debe ser un texto`,
       "string.empty": `Description no puede venir vacio`,
       "string.min": `Description debe tener minimo 3 letras`,
-      "string.max": `Description debe tener maximo 250 letras`,
+      "string.max": `Description debe tener maximo 600 letras`,
       "any.required": `Description es obligatorio`,
     }),
     price: Joi.number().positive().precision(2).greater(0).required().messages({
