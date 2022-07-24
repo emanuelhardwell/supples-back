@@ -14,7 +14,7 @@ const {
   updateProductSchema,
 } = require("../schemas/product.schema");
 const apicache = require("apicache");
-let cache = apicache.middleware;
+const cache = apicache.middleware;
 
 const routerProduct = Router();
 

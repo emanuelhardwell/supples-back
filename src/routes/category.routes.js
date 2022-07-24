@@ -12,14 +12,16 @@ const {
   createCategorySchema,
   updateCategorySchema,
 } = require("../schemas/category.schema");
+const apicache = require("apicache");
+const cache = apicache.middleware;
 
 const routerCategory = Router();
 
 routerCategory.use(validateJwt);
 
-routerCategory.get("/", getCategories);
+routerCategory.get("/", cache("4 minutes"), getCategories);
 
-routerCategory.get("/:id", getCategory);
+routerCategory.get("/:id", cache("4 minutes"), getCategory);
 
 routerCategory.post("/", schemaValidate(createCategorySchema), createCategory);
 
