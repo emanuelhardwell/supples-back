@@ -17,10 +17,10 @@ cartItemCtrl.getCartItem = async (req, res = response) => {
     let cartItem = await CartItem.findOne({ where: { id } });
 
     if (!cartItem) {
-      return responseErrorCode(res, "Este cartItem no existe", 404);
+      return responseErrorCode(res, "Este producto del carrito no existe", 404);
     }
 
-    responseSuccessfully(res, "CartItem encontrado", 200, {
+    responseSuccessfully(res, "Producto del carrito encontrado", 200, {
       cartItem,
     });
   } catch (error) {
@@ -44,10 +44,16 @@ cartItemCtrl.getCartItems = async (req, res = response) => {
     });
 
     if (!cartItems) {
-      return responseErrorCode(res, "Este cartItem no existe", 404);
+      return responseErrorCode(
+        res,
+        "Estos productos del carrito no existe",
+        404
+      );
     }
 
-    responseSuccessfully(res, "CartItems obtenidos", 200, { cartItems });
+    responseSuccessfully(res, "Productos del carrito obtenidos", 200, {
+      cartItems,
+    });
   } catch (error) {
     responseError500(res, error);
   }
@@ -61,7 +67,7 @@ cartItemCtrl.getCartItemsQuantity = async (req, res = response) => {
     });
 
     if (!cartItems) {
-      return responseErrorCode(res, "Este cartItem no existe", 404);
+      return responseErrorCode(res, "Este producto del carrito no existe", 404);
     }
 
     if (cartItems.length < 1) {
@@ -72,7 +78,9 @@ cartItemCtrl.getCartItemsQuantity = async (req, res = response) => {
         .reduce((count, item) => count + item, 0);
     }
 
-    responseSuccessfully(res, "CartItems obtenidos", 200, { cartItems });
+    responseSuccessfully(res, "Producto del carrito obtenidos", 200, {
+      cartItems,
+    });
   } catch (error) {
     responseError500(res, error);
   }
@@ -152,7 +160,7 @@ cartItemCtrl.createCartItem = async (req, res = response) => {
       );
     }
 
-    responseSuccessfully(res, "CartItem creado", 200, {
+    responseSuccessfully(res, "Producto agregado al carrito", 200, {
       cartItem: cartItemSaved,
     });
   } catch (error) {
@@ -196,7 +204,7 @@ cartItemCtrl.updateCartItem = async (req, res = response) => {
       );
     }
 
-    responseSuccessfully(res, "CartItem creado", 200, {
+    responseSuccessfully(res, "Producto del carrito actualizado", 200, {
       cartItem: cartItemSaved,
     });
   } catch (error) {
@@ -239,12 +247,12 @@ cartItemCtrl.deleteCartItem = async (req, res = response) => {
     let cartItem = await CartItem.findOne({ where: { id } });
 
     if (!cartItem) {
-      return responseErrorCode(res, "Este cartItem no existe", 404);
+      return responseErrorCode(res, "Este producto del carrito no existe", 404);
     }
 
     await CartItem.destroy({ where: { id } });
 
-    responseSuccessfully(res, "CartItem eliminado", 200, {});
+    responseSuccessfully(res, "Producto del carrito eliminado", 200, {});
   } catch (error) {
     responseError500(res, error);
   }
