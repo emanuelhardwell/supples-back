@@ -31,8 +31,8 @@ app.use("/api/v1/product", require("./routes/product.routes"));
 app.use("/api/v1/cart-item", require("./routes/CartItem.routes"));
 
 // middleware routes
-app.use(errorMiddleware);
 app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 // Server
 app.listen(process.env.PORT || 6000, () =>

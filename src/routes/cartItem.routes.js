@@ -5,6 +5,7 @@ const {
   getCartItems,
   getCartItem,
   deleteCartItem,
+  getCartItemsQuantity,
 } = require("../controllers/CartItem.controllers");
 const schemaValidate = require("../middlewares/schemaValidate.middlewares");
 const { validateJwt } = require("../middlewares/validateJwt.middleware");
@@ -15,6 +16,8 @@ const routerCartItem = Router();
 routerCartItem.use(validateJwt);
 
 routerCartItem.get("/", getCartItems);
+
+routerCartItem.get("/quantity", getCartItemsQuantity);
 
 routerCartItem.get("/:id", getCartItem);
 

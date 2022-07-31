@@ -53,6 +53,31 @@ cartItemCtrl.getCartItems = async (req, res = response) => {
   }
 };
 
+cartItemCtrl.getCartItemsQuantity = async (req, res = response) => {
+  try {
+    const { cart } = req;
+    let cartItems = await CartItem.findAll({
+      where: { cartId: cart },
+    });
+
+    if (!cartItems) {
+      return responseErrorCode(res, "Este cartItem no existe", 404);
+    }
+
+    if (cartItems.length < 1) {
+      cartItems = 0;
+    } else {
+      cartItems = cartItems
+        .map((item) => item.quantity)
+        .reduce((count, item) => count + item, 0);
+    }
+
+    responseSuccessfully(res, "CartItems obtenidos", 200, { cartItems });
+  } catch (error) {
+    responseError500(res, error);
+  }
+};
+
 // cartItemCtrl.createCartItem = async (req, res = response) => {
 //   const { productId } = req.body;
 //   const { cart } = req;
