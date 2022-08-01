@@ -40,7 +40,9 @@ cartItemCtrl.getCartItems = async (req, res = response) => {
     // const cartItems = await cartCart.getProducts();
     const cartItems = await Cart.findByPk(cart, {
       attributes: { exclude: ["userId"] },
-      include: [{ model: Product, attributes: ["name", "price", "imageUrl"] }],
+      include: [
+        { model: Product, attributes: ["id", "name", "price", "imageUrl"] },
+      ],
     });
 
     if (!cartItems) {
